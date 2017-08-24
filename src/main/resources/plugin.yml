@@ -1,0 +1,29 @@
+name: Economy
+version: 1.0-SNAPSHOT
+main: be.woutdev.economy.Economy
+author: Wout Ceulemans
+website: www.woutdev.be
+commands:
+  balance:
+    description: Get your balance or the balance of another player
+    aliases: [bal, money]
+  pay:
+    description: Pay a target user
+    aliases: [transfer]
+  serverbank:
+    description: Manage the bank of the server and deposit/withdraw money from players
+    aliases: [ironbank, sb, ib]
+  resetbalance:
+    description: Reset the balance of a player
+    aliases: [resetmoney, clearbalance, clearmoney]
+permissions:
+  economy.balance:
+    description: Allows you to check your current balance
+  economy.balance.other:
+    description: Allows you to check the current balance of others
+  economy.pay:
+    description: Allows you to pay another user
+  economy.serverbank:
+    description: Allows you to manage the bank of the server and manage money of players
+  economy.resetbalance:
+    description: Allows you to reset a players balance
