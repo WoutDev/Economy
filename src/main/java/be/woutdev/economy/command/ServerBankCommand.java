@@ -19,29 +19,26 @@ import org.bukkit.entity.Player;
  * Created by Wout on 13/08/2017.
  */
 public class ServerBankCommand implements CommandExecutor {
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (sender instanceof Player)
-        {
+        if (sender instanceof Player) {
             Player p = (Player) sender;
 
-            if (!p.hasPermission("economy.serverbank") && !p.isOp())
-            {
+            if (!p.hasPermission("economy.serverbank") && !p.isOp()) {
                 p.sendMessage(ChatColor.RED + "Economy: Permission denied.");
                 return false;
             }
         }
 
-        if (args.length != 3)
-        {
+        if (args.length != 3) {
             sender.sendMessage(ChatColor.RED + "Usage: /serverbank <withdraw/deposit/set> <player> <amount>");
             return false;
         }
 
         OfflinePlayer recipient = Bukkit.getOfflinePlayer(args[1]);
 
-        if (recipient == null)
-        {
+        if (recipient == null) {
             sender.sendMessage(ChatColor.RED + "That player does not exist!");
             return false;
         }
@@ -51,19 +48,17 @@ public class ServerBankCommand implements CommandExecutor {
         try {
             amount = new BigDecimal(args[2]).setScale(2, RoundingMode.CEILING);
 
-            if (amount.doubleValue() < 0.01)
+            if (amount.doubleValue() < 0.01) {
                 throw new NumberFormatException("invalid amount");
-        }
-        catch (NumberFormatException e)
-        {
+            }
+        } catch (NumberFormatException e) {
             sender.sendMessage(ChatColor.RED + "Error: Invalid amount of money!");
             return false;
         }
 
         Account accRecipient = EconomyAPI.getAPI().getAccount(recipient.getUniqueId()).orElse(null);
 
-        if (accRecipient == null)
-        {
+        if (accRecipient == null) {
             sender.sendMessage(ChatColor.RED + "Err: Recipient does not have an account!");
             return false;
         }
@@ -72,31 +67,21 @@ public class ServerBankCommand implements CommandExecutor {
         Transaction transaction;
 
         if (action.equalsIgnoreCase("withdraw") ||
-            action.equalsIgnoreCase("w"))
-        {
+            action.equalsIgnoreCase("w")) {
             transaction = EconomyAPI.getAPI().createTransaction(accRecipient, TransactionType.WITHDRAW, amount);
-        }
-        else if (action.equalsIgnoreCase("deposit") ||
-            action.equalsIgnoreCase("d"))
-        {
+        } else if (action.equalsIgnoreCase("deposit") ||
+            action.equalsIgnoreCase("d")) {
             transaction = EconomyAPI.getAPI().createTransaction(accRecipient, TransactionType.DEPOSIT, amount);
-        }
-        else if (action.equalsIgnoreCase("set") ||
-            action.equalsIgnoreCase("s"))
-        {
-            if (accRecipient.getBalance().doubleValue() > amount.doubleValue())
-            {
+        } else if (action.equalsIgnoreCase("set") ||
+            action.equalsIgnoreCase("s")) {
+            if (accRecipient.getBalance().doubleValue() > amount.doubleValue()) {
                 transaction = EconomyAPI.getAPI().createTransaction(accRecipient, TransactionType.WITHDRAW,
                     BigDecimal.valueOf(accRecipient.getBalance().doubleValue() - amount.doubleValue()));
-            }
-            else
-            {
+            } else {
                 transaction = EconomyAPI.getAPI().createTransaction(accRecipient, TransactionType.DEPOSIT,
                     BigDecimal.valueOf(amount.doubleValue() - accRecipient.getBalance().doubleValue()));
             }
-        }
-        else
-        {
+        } else {
             sender.sendMessage(ChatColor.RED + "Usage: /serverbank <withdraw/deposit/set> <player> <amount>");
             return false;
         }
@@ -105,8 +90,7 @@ public class ServerBankCommand implements CommandExecutor {
 
         future.addListener((t) ->
         {
-            switch(t.getResult().getStatus())
-            {
+            switch (t.getResult().getStatus()) {
                 case SUCCESS:
                     sender.sendMessage(String.format("%sSuccessfully %s %s to/from %s's account!",
                         ChatColor.GREEN,

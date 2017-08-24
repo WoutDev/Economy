@@ -8,8 +8,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 /**
  * Created by Wout on 12/08/2017.
  */
-public class PlayerQuitListener implements Listener
-{
+public class PlayerQuitListener implements Listener {
+
     private final Economy economy;
 
     public PlayerQuitListener(Economy economy) {
@@ -17,8 +17,7 @@ public class PlayerQuitListener implements Listener
     }
 
     @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent e)
-    {
+    public void onPlayerQuit(PlayerQuitEvent e) {
         economy.getCache().removeAccount(e.getPlayer().getUniqueId());
     }
 }

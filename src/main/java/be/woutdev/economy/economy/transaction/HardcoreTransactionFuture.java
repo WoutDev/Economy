@@ -10,8 +10,8 @@ import java.util.function.Consumer;
 /**
  * Created by Wout on 12/08/2017.
  */
-public class HardcoreTransactionFuture implements TransactionFuture
-{
+public class HardcoreTransactionFuture implements TransactionFuture {
+
     private final HardcoreTransaction transaction;
 
     public HardcoreTransactionFuture(HardcoreTransaction transaction) {
@@ -31,7 +31,7 @@ public class HardcoreTransactionFuture implements TransactionFuture
     @Override
     public boolean isDone() {
         return transaction.getResult().getStatus() != TransactionStatus.AWAITING_QUEUE &&
-               transaction.getResult().getStatus() != TransactionStatus.QUEUED;
+            transaction.getResult().getStatus() != TransactionStatus.QUEUED;
     }
 
     @Override

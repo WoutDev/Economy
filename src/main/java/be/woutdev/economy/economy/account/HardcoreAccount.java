@@ -8,8 +8,8 @@ import java.util.UUID;
 /**
  * Created by Wout on 12/08/2017.
  */
-public class HardcoreAccount implements Account
-{
+public class HardcoreAccount implements Account {
+
     private final UUID owner;
     private BigDecimal balance;
 
@@ -28,8 +28,7 @@ public class HardcoreAccount implements Account
         return balance;
     }
 
-    public void setBalance(BigDecimal balance)
-    {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 

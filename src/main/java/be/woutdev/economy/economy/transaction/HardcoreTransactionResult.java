@@ -5,8 +5,8 @@ import be.woutdev.economy.api.transaction.TransactionResult;
 /**
  * Created by Wout on 12/08/2017.
  */
-public class HardcoreTransactionResult implements TransactionResult
-{
+public class HardcoreTransactionResult implements TransactionResult {
+
     private TransactionStatus status;
 
     public HardcoreTransactionResult() {
@@ -23,8 +23,7 @@ public class HardcoreTransactionResult implements TransactionResult
         return status;
     }
 
-    public void updateStatus(TransactionStatus status)
-    {
+    public void updateStatus(TransactionStatus status) {
         this.status = status;
     }
 }

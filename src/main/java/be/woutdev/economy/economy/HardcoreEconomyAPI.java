@@ -16,8 +16,8 @@ import org.bukkit.entity.Player;
 /**
  * Created by Wout on 12/08/2017.
  */
-public class HardcoreEconomyAPI extends EconomyAPI
-{
+public class HardcoreEconomyAPI extends EconomyAPI {
+
     private final Economy economy;
 
     public HardcoreEconomyAPI(Economy economy) {
@@ -26,12 +26,14 @@ public class HardcoreEconomyAPI extends EconomyAPI
 
     @Override
     public BigDecimal getBalance(Player player) {
-        return economy.getCache().getAccount(player.getUniqueId()) == null ? new BigDecimal(0) : economy.getCache().getAccount(player.getUniqueId()).getBalance();
+        return economy.getCache().getAccount(player.getUniqueId()) == null ? new BigDecimal(0)
+            : economy.getCache().getAccount(player.getUniqueId()).getBalance();
     }
 
     @Override
     public Optional<BigDecimal> getBalance(UUID uuid) {
-        return economy.getCache().containsAccount(uuid) ? Optional.of(economy.getCache().getAccount(uuid).getBalance()) : Optional.ofNullable(economy.getDb().getBalance(uuid));
+        return economy.getCache().containsAccount(uuid) ? Optional.of(economy.getCache().getAccount(uuid).getBalance())
+            : Optional.ofNullable(economy.getDb().getBalance(uuid));
     }
 
     @Override
@@ -41,8 +43,9 @@ public class HardcoreEconomyAPI extends EconomyAPI
 
     @Override
     public Optional<Account> getAccount(UUID uuid) {
-        if (economy.getCache().containsAccount(uuid))
+        if (economy.getCache().containsAccount(uuid)) {
             return Optional.ofNullable(economy.getCache().getAccount(uuid));
+        }
 
         Optional<Account> optionalAccount = Optional.ofNullable(economy.getDb().load(uuid));
 

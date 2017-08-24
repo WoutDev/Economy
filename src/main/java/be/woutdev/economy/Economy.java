@@ -22,17 +22,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  * Created by Wout on 12/08/2017.
  */
-public class Economy extends JavaPlugin
-{
-    private static final Account SERVER_ACCOUNT = new HardcoreAccount(UUID.fromString("00000000-0000-0000-0000-000000000000"), new BigDecimal(0));
+public class Economy extends JavaPlugin {
+
+    private static final Account SERVER_ACCOUNT = new HardcoreAccount(
+        UUID.fromString("00000000-0000-0000-0000-000000000000"), new BigDecimal(0));
     private HardcoreTransactionProcessor processor;
     private HardcoreTransactionPersister persister;
     private AccountCache cache;
     private Database db;
 
     @Override
-    public void onEnable()
-    {
+    public void onEnable() {
         EconomyAPI.setAPI(new HardcoreEconomyAPI(this));
 
         db = new Database(this);

@@ -9,6 +9,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Created by Wout on 12/08/2017.
  */
 public class HardcoreTransactionPersister implements Runnable {
+
     private final Economy economy;
     private final Queue<Account> queue;
 
@@ -19,19 +20,18 @@ public class HardcoreTransactionPersister implements Runnable {
 
     @Override
     public void run() {
-        while(!queue.isEmpty())
-        {
+        while (!queue.isEmpty()) {
             Account account = queue.poll();
 
-            if (account.isServer())
+            if (account.isServer()) {
                 continue;
+            }
 
             economy.getDb().save(account);
         }
     }
 
-    public boolean enqueue(Account account)
-    {
+    public boolean enqueue(Account account) {
         return queue.add(account);
     }
 }

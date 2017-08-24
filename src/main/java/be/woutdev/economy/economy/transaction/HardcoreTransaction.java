@@ -15,8 +15,8 @@ import org.bukkit.Bukkit;
 /**
  * Created by Wout on 12/08/2017.
  */
-public class HardcoreTransaction implements Transaction
-{
+public class HardcoreTransaction implements Transaction {
+
     private final Account recipient;
     private final Account sender;
     private final TransactionType type;
@@ -63,8 +63,10 @@ public class HardcoreTransaction implements Transaction
         listeners.add(consumer);
 
         if (result.getStatus() != TransactionStatus.AWAITING_QUEUE &&
-            result.getStatus() != TransactionStatus.QUEUED)
-            Bukkit.getScheduler().runTask(Economy.getPlugin(Economy.class), () -> consumer.accept(this)); // IN CASE WE QUICKLY GET PROCESSED
+            result.getStatus() != TransactionStatus.QUEUED) {
+            Bukkit.getScheduler().runTask(Economy.getPlugin(Economy.class),
+                () -> consumer.accept(this)); // IN CASE WE QUICKLY GET PROCESSED
+        }
     }
 
     public Set<Consumer<Transaction>> getListeners() {

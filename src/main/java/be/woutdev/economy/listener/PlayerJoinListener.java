@@ -9,8 +9,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 /**
  * Created by Wout on 12/08/2017.
  */
-public class PlayerJoinListener implements Listener
-{
+public class PlayerJoinListener implements Listener {
+
     private final Economy economy;
 
     public PlayerJoinListener(Economy economy) {
@@ -18,8 +18,7 @@ public class PlayerJoinListener implements Listener
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e)
-    {
+    public void onPlayerJoin(PlayerJoinEvent e) {
         Account account = economy.getDb().load(e.getPlayer());
 
         economy.getCache().putIfAbsent(account);
